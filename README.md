@@ -24,5 +24,16 @@ Files structure:
 
 # Features design
 I've organized the design in 3 different feature families: Movie features, user features, and environment features.
-1) Movie features: 
-This are general descriptions of the movie. These are low-complexity features because there is no temporality issues involved, and the information consists only on the movie itself
+## 1) Movie features: 
+### This are general descriptions of the movie. These are low-complexity features because there is no temporality issues involved, and the information consists only on the movie itself. Here is the list of features with the hypothesis I had to explain behaviour.
+- Movie year (extracted from the title): Useful for years (or decades) with great movies. Also useful to build other features
+- Flag for each genre: Some genres consistently have bad rates (e.g.: horror movies are usually bad)
+- Tag relevance information:
+1. Top 5 tags of the movie (string): Useful tags were relevant (e.g.: oscar(best supporting actor) , surprise ending, etc)
+2. Relevance of the top 5 most relevant tags of all movies: Some tags are consistently relevant, such as "great ending" which suggest a big impact on the rating 
+3. Relevance of the top 5 most discriminant tags of all movies: If the tag has very different relevances, it should mean it is important to describe a movie ("tense" is not a tag for every movie). Not so promising for predictions, but insightful for movie description. 
+4. IMDB average ratings (External): If IMDB applied a high rate to the movie, most users should do so (even if they dislike the movie, they might be biased)
+5. IMDB votes quantity: Gives a sense of how many people saw the movie (and how reliable is the average rating)
+6. Movie recency: years between the movie creation and the rating. I think people watch old movies only if these have nice references (useful for other features like "avg. recency of movies watched for each user)
+
+## 2) User features:
