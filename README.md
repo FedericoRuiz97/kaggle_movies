@@ -1,5 +1,5 @@
 # Challenge Kaggle Movies
-This challenge was developed for Kueski, focusing on feature engineering rather than modeling.
+This challenge was developed for Kueski, focusing on feature engineering. More details on feature designing at the end of this file!
 
 Files structure:
 * raw_data: folder with kaggle movies data 
@@ -23,4 +23,6 @@ Files structure:
 - Export predictions, model, pipeline, and useful files
 
 # Features design
-WIP
+I've organized the design in 3 different feature families: Movie features, user features, and environment features.
+1) Movie features: 
+This are general descriptions of the movie. These are low-complexity features because there is no temporality issues involved, and the information consists only on the movie itself
