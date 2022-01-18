@@ -37,12 +37,14 @@ I've organized the design in 3 different feature families: Movie features, user 
 1. Top 5 tags of the movie (string): Useful tags were relevant (e.g.: oscar(best supporting actor) , surprise ending, etc)
 2. Relevance of the top 5 most relevant tags of all movies (doesnt qualify as data leakage): Some tags are consistently relevant, such as "great ending" which suggest a big impact on the rating 
 3. Relevance of the top 5 most discriminant tags of all movies: If the tag has very different relevances, it should mean it is important to describe a movie ("tense" is not a tag for every movie). Not so promising for predictions, but insightful for movie description. 
-4. IMDB average ratings (External): If IMDB applied a high rate to the movie, most users should do so (even if they dislike the movie, they might be biased)
-5. IMDB votes quantity: Gives a sense of how many people saw the movie (and how reliable is the average rating)
-6. Movie recency: years between the movie creation and the rating. I think people watch old movies only if these have nice references (useful for other features like "avg. recency of movies watched for each user)
+- IMDB average ratings (External): If IMDB applied a high rate to the movie, most users should do so (even if they dislike the movie, they might be biased)
+- IMDB votes quantity: Gives a sense of how many people saw the movie (and how reliable is the average rating)
+- Movie recency: years between the movie creation and the rating. I think people watch old movies only if these have nice references (useful for other features like "avg. recency of movies watched for each user)
+- Hour of the rating (WIP): Judges are more strict before lunch and dinner. This indicates that the hour of the rating may be relevant to predict it. This feauture probably won't explain a lot by itself, but it captures information that no one else can (it shouldn't be correlated with other features)
+- Time from the last high (WIP): If a movie just blown the user's mind an she rated it as high, maybe for the next movie she will have a higher standard or comparison and will be more strict.
 
 ## 2) User features:
-### These features are trickier because of the temporality. We should not use data behaviour that occurred after each rating. This would mean DATA LEAKAGE. 
+### These features can be tricky due to the temporality issues. We should not use data behaviour that occurred after each rating (this would lead to DATA LEAKAGE). 
 - Average rate of the user (past 20 movies) --> In my experience the strongest predictor ALWAYS is the history of the target. In this case we see the "long term" (20 movies)
 - Average rate of the user (past 5 movies) --> We'll also see the short term (sometimes is nice to make this difference)
 - Trend of rating (past_20 vs past_5) --> The user may be choosing better the movies, or following some special trend, and that is what I try to capture with this feature. 
@@ -51,5 +53,8 @@ I've organized the design in 3 different feature families: Movie features, user 
 - Amount of highs --> This gives a dimention of how reliable is the former feature
 - Years from the first rated movie --> It's another perspective for the experience that the user has. Tries to capture something about her age.
 
+# Features yet to build:
 ## 3) Environment features:
+### These features can be even trickier. The idea is to get features from the rest of the users before each rating. This information would help when we have only a small amount of data for each user, and therefore is not entirely reliable. We can calculate a weighted mean between the user feature and the environment feature, based on the amount of data we have. This features would be:
+- The same list of "2) User features" but for the environment, and adding the amount of data in each case.
 
